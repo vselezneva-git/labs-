@@ -1,3 +1,0 @@
-C:/OOP_Project/lab0/lab0(b)/build/CMakeFiles/lab0b.dir
-C:/OOP_Project/lab0/lab0(b)/build/CMakeFiles/edit_cache.dir
-C:/OOP_Project/lab0/lab0(b)/build/CMakeFiles/rebuild_cache.dir
