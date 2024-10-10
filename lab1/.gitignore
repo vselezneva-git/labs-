@@ -1,0 +1,24 @@
+# Игнорирование файлов gcov и gcda
+*.gcno
+*.gcda
+*.info
+
+# Игнорирование исполняемых файлов
+a.out
+lab1_tests
+
+*.gcov
+
+
+# Игнорирование директорий с отчетами
+/out
+/report
+
+# Игнорирование временных файлов Visual Studio Code
+.vscode/
+
+# Игнорирование CMake файлов
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
