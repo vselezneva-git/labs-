@@ -74,7 +74,9 @@ public:
     friend BitArray operator&(const BitArray& b1, const BitArray& b2);
     friend BitArray operator|(const BitArray& b1, const BitArray& b2);
     friend BitArray operator^(const BitArray& b1, const BitArray& b2);
-
+    
+    void extra_mask(int bit_count);
+    int calculate_long(int num_bits) const;
 };
 
 
