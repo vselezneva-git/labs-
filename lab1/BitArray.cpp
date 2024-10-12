@@ -10,7 +10,7 @@ BitArray::BitArray(int num_bits, unsigned long value) {
     if(num_bits < 0) throw std::invalid_argument("array size cannot be negative");
 
     //сколько unsigned long нам надо?
-    int num_long = (num_bits + (bits_in_long - 1)) / bits_in_long;
+    int num_long = calculate_long(num_bits);
 
     bits.resize(num_long, 0);
     if(num_bits > 0)  {
@@ -40,38 +40,32 @@ void BitArray::Resize(int new_size, bool value) {
         throw std::invalid_argument("array size cannot be negative");
     }
 
-    if (new_size == num_bits) {
+    int new_num_long = calculate_long(new_size);
+    int old_size = num_bits;
+
+    if(new_size == 0) {
+        bits.clear();
+    }
+
+    if(new_size == num_bits) {
         return;
     }
 
-    int old_size = num_bits;
-    int old_num_long = (num_bits + bits_in_long - 1) / bits_in_long;
-    int new_num_long = (new_size + bits_in_long - 1) / bits_in_long;
+    bits.resize(new_num_long, 0ul); 
 
     num_bits = new_size; 
 
-    if (new_size > old_size) {
-        bits.resize(new_num_long, 0ul);
-
-        if (value) {
-            for (int i = old_size; i < new_size; ++i) {
-                Set(i, true);
-            }
-        }
-
-    } else {
-        if (new_size == 0) {
-            bits.clear();
-        } else {
-            bits.resize(new_num_long);
-            if (new_size % bits_in_long != 0) {
-                int bits_used = new_size % bits_in_long;
-                unsigned long mask = (1 << bits_used) - 1;
-                bits[new_num_long - 1] &= mask;
-            }
+    if (new_size > old_size && value) {
+        for (int i = old_size; i < new_size; ++i) {
+            Set(i, true); 
         }
     }
+
+    extra_mask(new_size);
+
 }
+
+
 void BitArray::clear() {
     bits.clear();
     num_bits = 0;
@@ -177,10 +171,8 @@ BitArray& BitArray::Set() {
         val = ~0ul;
     }
 
-    int extra_bits = num_bits % bits_in_long;
-    if(extra_bits != 0) {
-        bits.back() &= (1ul << extra_bits) - 1;
-    }
+    extra_mask(num_bits);
+
     return *this;
 }
 
@@ -212,11 +204,7 @@ BitArray BitArray::operator~() const {
         val = ~val;
     }
 
-    int extra_bits = num_bits % bits_in_long;
-    if(extra_bits != 0) {
-        unsigned long mask = (1ul << extra_bits) - 1;
-        result.bits.back() &= mask;
-    }
+    result.extra_mask(num_bits);
 
     return result;
 }
@@ -282,4 +270,15 @@ BitArray operator^(const BitArray& b1, const BitArray& b2) {
     BitArray result(b1);
     result ^= b2;
     return result;
+}
+
+void BitArray::extra_mask(int bit_count) {
+    int extra_bits = bit_count % bits_in_long;
+    if (extra_bits != 0) {
+        bits.back() &= (1ul << extra_bits) - 1;
+    }
+}
+
+int BitArray::calculate_long(int num_bits) const {
+    return (num_bits + (bits_in_long - 1)) / bits_in_long;
 }
