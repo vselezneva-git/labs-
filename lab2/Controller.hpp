@@ -15,8 +15,8 @@ private:
     Model& m_model;
     View&  m_view;
 
-    bool   m_isPlaying;
-    int    m_delay;
+    bool m_isPlaying;
+    int  m_delay;
 
     void processEvents(sf::RenderWindow& window);
 };

@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include "ICell.hpp"
-#include "CellFactory.hpp"
+#include "CellType.hpp"
 
 class Model
 {
@@ -17,7 +17,7 @@ public:
     bool isAlive(int x, int y) const;
     void setAlive(int x, int y, bool alive);
 
-    int getWidth() const { return m_width; }
+    int getWidth()  const { return m_width; }
     int getHeight() const { return m_height; }
 
 private:
@@ -25,6 +25,7 @@ private:
     
     int m_width;
     int m_height;
+
     std::vector<std::unique_ptr<ICell>> m_cells;
     std::vector<std::unique_ptr<ICell>> m_cellsNext;
 };

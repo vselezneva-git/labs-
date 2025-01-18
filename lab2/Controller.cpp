@@ -1,5 +1,5 @@
 #include "Controller.hpp"
-#include <algorithm> 
+#include <algorithm>
 
 Controller::Controller(Model& model, View& view)
     : m_model(model)
@@ -13,6 +13,7 @@ void Controller::run()
 {
     int windowWidth  = m_model.getWidth()  * 30;
     int windowHeight = m_model.getHeight() * 30 + 70;
+
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Game of Life");
 
     while (window.isOpen()) {
@@ -36,7 +37,7 @@ void Controller::processEvents(sf::RenderWindow& window)
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
-        } 
+        }
         else if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::P) {
                 m_isPlaying = !m_isPlaying;

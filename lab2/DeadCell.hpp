@@ -4,8 +4,6 @@
 class DeadCell : public ICell
 {
 public:
-    bool isAlive() const override { return false; }
-    void setAlive(bool alive) override {
-        (void)alive;
-    }
+    bool isAlive() const override;
+    void setAlive(bool alive) override;
 };

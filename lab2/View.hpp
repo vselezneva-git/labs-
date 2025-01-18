@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <string>
 #include "Model.hpp"
+
 
 class View
 {
