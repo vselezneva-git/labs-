@@ -1,0 +1,6 @@
+
+LoggingObserver: oop
+LoggingObserver: oop
+LoggingObserver: oop
+LoggingObserver: oop
+LoggingObserver: oop
