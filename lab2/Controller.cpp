@@ -35,26 +35,52 @@ void Controller::processEvents(sf::RenderWindow& window)
 {
     sf::Event event;
     while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            window.close();
+        switch (event.type)
+        {
+            case sf::Event::Closed:
+                window.close();
+                break;
+
+            case sf::Event::KeyPressed:
+                handleKeyPress(event.key);
+                break;
+
+            case sf::Event::MouseButtonPressed:
+                handleMousePress(event.mouseButton);
+                break;
+
+            default:
+                break;
         }
-        else if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::P) {
-                m_isPlaying = !m_isPlaying;
-            }
-            else if (event.key.code == sf::Keyboard::Right) {
-                m_delay = std::max(m_delay - 50, 0);
-            }
-            else if (event.key.code == sf::Keyboard::Left) {
-                m_delay += 50;
-            }
-        }
-        else if (event.type == sf::Event::MouseButtonPressed) {
-            if (!m_isPlaying && event.mouseButton.button == sf::Mouse::Left) {
-                int x = event.mouseButton.x / 30;
-                int y = event.mouseButton.y / 30;
-                m_model.toggleCell(x, y);
-            }
-        }
+    }
+}
+
+void Controller::handleKeyPress(const sf::Event::KeyEvent& keyEvent)
+{
+    switch (keyEvent.code)
+    {
+        case sf::Keyboard::P:
+            m_isPlaying = !m_isPlaying;
+            break;
+
+        case sf::Keyboard::Right:
+            m_delay = std::max(m_delay - 50, 0);
+            break;
+
+        case sf::Keyboard::Left:
+            m_delay += 50;
+            break;
+
+        default:
+            break;
+    }
+}
+
+void Controller::handleMousePress(const sf::Event::MouseButtonEvent& mouseEvent)
+{
+    if (!m_isPlaying && mouseEvent.button == sf::Mouse::Left) {
+        int x = mouseEvent.x / 30;
+        int y = mouseEvent.y / 30;
+        m_model.toggleCell(x, y);
     }
 }

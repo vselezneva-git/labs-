@@ -10,7 +10,6 @@ class Model
 public:
     Model(int width, int height);
 
-    void randomize(double fillProbability);
     void toggleCell(int x, int y);
     void update();
 

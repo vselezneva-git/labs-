@@ -12,11 +12,14 @@ public:
     void run();
 
 private:
+    void processEvents(sf::RenderWindow& window);
+    void handleKeyPress(const sf::Event::KeyEvent& keyEvent);
+    void handleMousePress(const sf::Event::MouseButtonEvent& mouseEvent);
+
     Model& m_model;
     View&  m_view;
 
     bool m_isPlaying;
     int  m_delay;
 
-    void processEvents(sf::RenderWindow& window);
 };

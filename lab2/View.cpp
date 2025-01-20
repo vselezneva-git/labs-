@@ -13,25 +13,17 @@ View::View(Model& model, int cellSize)
         std::cerr << "Failed to load arial.ttf\n";
     }
 
-    m_textPause.setFont(m_font);
-    m_textPause.setCharacterSize(15);
-    m_textPause.setFillColor(BLACK);
-    m_textPause.setString("Press 'P' to pause.");
+    setText(m_textPause, "Press 'P' to pause");
+    setText(m_textPlay, "Press 'p' to play");
+    setText(m_textToggle, "Click on cell to toggle live/dead");
+    setText(m_textSpeed, "Use left/right arrow keys to change speed");
+}
 
-    m_textPlay.setFont(m_font);
-    m_textPlay.setCharacterSize(15);
-    m_textPlay.setFillColor(BLACK);
-    m_textPlay.setString("Press 'P' to play.");
-
-    m_textToggle.setFont(m_font);
-    m_textToggle.setCharacterSize(15);
-    m_textToggle.setFillColor(BLACK);
-    m_textToggle.setString("Click on cell to toggle live/dead.");
-
-    m_textSpeed.setFont(m_font);
-    m_textSpeed.setCharacterSize(15);
-    m_textSpeed.setFillColor(BLACK);
-    m_textSpeed.setString("Use left/right arrow keys to change speed.");
+void View::setText(sf::Text& text, const std::string& str) {
+    text.setFont(m_font);
+    text.setCharacterSize(15);
+    text.setFillColor(BLACK);
+    text.setString(str);
 }
 
 void View::draw(sf::RenderWindow& window)
@@ -57,7 +49,7 @@ void View::draw(sf::RenderWindow& window)
 
 void View::drawUI(sf::RenderWindow& window, bool isPlaying, int delay)
 {
-    float yPos = (float)(m_model.getHeight() * m_cellSize) + 5;
+    float yPos = (float)(m_model.getHeight() * m_cellSize) + 5.f;
 
     if (isPlaying) {
         m_textPause.setPosition(10.f, yPos);

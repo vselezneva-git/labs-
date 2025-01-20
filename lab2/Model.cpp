@@ -1,7 +1,5 @@
 #include "Model.hpp"
 #include "CellRegistry.hpp"  
-#include <cstdlib>
-#include <ctime>
 
 Model::Model(int width, int height)
     : m_width(width)
@@ -22,15 +20,6 @@ Model::Model(int width, int height)
     }
 }
 
-void Model::randomize(double fillProbability)
-{
-    srand(static_cast<unsigned>(time(nullptr)));
-
-    for (int i = 0; i < m_width * m_height; ++i) {
-        bool alive = ((double)rand()/RAND_MAX) < fillProbability;
-        m_cells[i] = g_cellFactory.Create(alive ? CellType::Alive : CellType::Dead);
-    }
-}
 
 void Model::toggleCell(int x, int y)
 {

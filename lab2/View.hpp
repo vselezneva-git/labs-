@@ -13,6 +13,8 @@ public:
     void drawUI(sf::RenderWindow& window, bool isPlaying, int delay);
 
 private:
+    void setText(sf::Text& text, const std::string& str);
+
     Model& m_model;
     int m_cellSize;
 
